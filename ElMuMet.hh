@@ -1,3 +1,5 @@
+class Electron;
+class Muon;
 class Met;
 class ElectronMuonExtraLoose;
 
@@ -17,17 +19,19 @@ class ElectronMuonMet
 	};
 
 	vector<DATA>* v;
+    vector<int>* LeptMult;
     int cEMuMet;
     
 public:
 	ElectronMuonMet()
 	{
 		v = new vector<DATA>;
+        LeptMult = new vector<int>;
 	}
 
     int getEMuMet(){return cEMuMet;}
     
-    vector<DATA>* setData(ElectronMuonExtraLoose& emel, Met& met)
+    vector<DATA>* setData(ElectronMuonExtraLoose& emel, Met& met,Electron& ufe,Muon& ufm)
     {
         int rejected_met = 0;
         int events = 0;
@@ -40,6 +44,7 @@ public:
                rejected_met++;
               continue;
             }
+            
 	   for(unsigned int j=0;j<dv->size();j++)
             {
                 events++;
@@ -49,7 +54,7 @@ public:
                 v->push_back(d);
                 //cout<<"MET:EventID"<<evtID<<", MetID:"<<j<<"PT:"<<metd.pt<<", ptc:"<<metd.ptc<<endl;
             }
-           
+           LeptMult->push_back(((ufe.v->at(evtID))->size())+((ufm.v->at(evtID))->size()));
         }
       //  cout<<"total number of selected events due to no met passing cut"<<events<<endl;
      //   cout<<"total number of rejected events due to no met passing cut"<<rejected_met<<endl;
@@ -151,6 +156,7 @@ public:
                 (hv->at(4))->Fill(d.muonEta);
                 (hv->at(5))->Fill(d.muonPhi);
                 (hv->at(6))->Fill(d.metPt);
+                if(LeptMult->at(i)){(hv->at(7))->Fill(LeptMult->at(i));}
             }
             if(Case==2)
             {
@@ -162,6 +168,7 @@ public:
                 (hv->at(1))->Fill(d.muonEta);
                 (hv->at(2))->Fill(d.muonPhi);
                 (hv->at(3))->Fill(d.metPt);
+                if(LeptMult->at(i)){(hv->at(4))->Fill(LeptMult->at(i));}
             }
             
             if(Case==3)
@@ -174,6 +181,7 @@ public:
                 (hv->at(1))->Fill(d.muonEta);
                 (hv->at(2))->Fill(d.muonPhi);
                 (hv->at(3))->Fill(d.metPt);
+                if(LeptMult->at(i)){(hv->at(4))->Fill(LeptMult->at(i));}
             }
         }
         return;
@@ -197,7 +205,7 @@ public:
         TH1F* muonEta_ = 0;
         TH1F* muonPhi_ = 0;
         TH1F* metPt_ = 0;
-        
+        TH1F* LeptonMult_ = 0;
         if(Case==1 || Case==2)
         {
             electronPt_  = fs.make<TH1F>("electronPt_"  , "pt"  ,   100,   0., 400.);
@@ -223,7 +231,11 @@ public:
             metPt_  = fs.make<TH1F>("metPt_"  , "pt"  ,   100,   0., 400.);
             hv->push_back(metPt_);
         }
-        
+        if(Case==1 || Case==2 || Case==3)
+        {
+            LeptonMult_  = fs.make<TH1F>("LeptonMult_"  , "LeptonMultiplcity"  ,   20,  0.0, 20.0);
+            hv->push_back(LeptonMult_);
+        }
         return hv;
     }
     

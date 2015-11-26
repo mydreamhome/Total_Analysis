@@ -1,9 +1,5 @@
 #!/bin/csh
 cd /afs/cern.ch/work/p/ppriyank/private/antiTop/CMSSW_7_4_7_patch2/src
-hadd electronMult.root electronMult_*.root 
-rm -rf electronMult_*.root
-hadd muonMult.root muonMult_*.root 
-rm -rf muonMult_*.root
 hadd electronMuononeTeoneTm.root electronMuononeTeoneTm_*.root 
 rm -rf electronMuononeTeoneTm_*.root
 hadd electronMuononeTeoneTm2e.root electronMuononeTeoneTm2e_*.root 

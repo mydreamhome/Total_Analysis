@@ -38,13 +38,14 @@ class ElectronMuonExtraLoose
     };
     
     vector<DATA>*  v;
+    vector<int>* LeptMult;
     int cExLoose1e1m,cExLoose2e,cExLoose2m;
     
 public:
     ElectronMuonExtraLoose()
     {
-        
         v= new vector<DATA>;
+        LeptMult = new vector<int>;
     }
    
     int getEWExLoose1e1m(){return cExLoose1e1m;}
@@ -97,6 +98,7 @@ public:
             
             if (isEventSelected)
             {
+                
                 sselected_events++;
                 // ElectronMuon dvem = em;
                 DATA emelc;
@@ -115,7 +117,7 @@ public:
                 emelc.muonPhi=em.v->at(i).muonPhi;
                 
                 // cout<<"Selected (on basis of extra loose electrons & muons) EventID: "<<evtID<<", electronID:"<<emelc.eID<<", muonID:"<<emelc.mID<<", electronCharge:"<<emelc.ech<<", muonCharge:"<<emelc.mch<<endl;
-                
+                LeptMult->push_back(((elect.v->at(emelc.evtID))->size())+((mu.v->at(emelc.evtID))->size()));
                 v->push_back(emelc);
             }
         }
@@ -125,7 +127,7 @@ public:
         return v;
     }
 
-    vector<DATA>* setData2(ElectronMuonOppChrg& em, Electron& elect)
+    vector<DATA>* setData2(ElectronMuonOppChrg& em, Electron& elect,Muon& ufm)
     {
         vector<DATAE>* dve;
         int rejected_event = 0;
@@ -154,6 +156,7 @@ public:
             
             if (isEventSelected)
             {
+                
                 sselected_events++;
                 // ElectronMuon dvem = em;
                 DATA emelc;
@@ -172,7 +175,7 @@ public:
                 emelc.muonPhi=em.v->at(i).muonPhi;
                 
                 // cout<<"Selected (on basis of extra loose electrons & muons) EventID: "<<evtID<<", electronID:"<<emelc.eID<<", muonID:"<<emelc.mID<<", electronCharge:"<<emelc.ech<<", muonCharge:"<<emelc.mch<<endl;
-                
+                LeptMult->push_back(((elect.v->at(emelc.evtID))->size())+((ufm.v->at(emelc.evtID))->size()));
                 v->push_back(emelc);
             }
         }
@@ -182,7 +185,7 @@ public:
         return v;
     }
 
-    vector<DATA>* setData3(ElectronMuonOppChrg& em, Muon& mu)
+    vector<DATA>* setData3(ElectronMuonOppChrg& em,Electron& ufe, Muon& mu)
     {
         vector<DATAM>* dvm;
         int rejected_event = 0;
@@ -211,6 +214,7 @@ public:
             
             if (isEventSelected)
             {
+                
                 sselected_events++;
                 // ElectronMuon dvem = em;
                 DATA emelc;
@@ -229,7 +233,7 @@ public:
                 emelc.muonPhi=em.v->at(i).muonPhi;
                 
                 // cout<<"Selected (on basis of extra loose electrons & muons) EventID: "<<evtID<<", electronID:"<<emelc.eID<<", muonID:"<<emelc.mID<<", electronCharge:"<<emelc.ech<<", muonCharge:"<<emelc.mch<<endl;
-                
+                LeptMult->push_back(((ufe.v->at(emelc.evtID))->size())+((mu.v->at(emelc.evtID))->size()));
                 v->push_back(emelc);
             }
         }
@@ -324,6 +328,7 @@ public:
                 (hv->at(3))->Fill(d.muonPt);
                 (hv->at(4))->Fill(d.muonEta);
                 (hv->at(5))->Fill(d.muonPhi);
+                if(LeptMult->at(i)){(hv->at(6))->Fill(LeptMult->at(i));}
             }
             if(Case==2)
             {
@@ -334,7 +339,7 @@ public:
                 (hv->at(0))->Fill(d.muonPt);
                 (hv->at(1))->Fill(d.muonEta);
                 (hv->at(2))->Fill(d.muonPhi);
-                
+                if(LeptMult->at(i)){(hv->at(3))->Fill(LeptMult->at(i));}
             }
             
             if(Case==3)
@@ -346,7 +351,7 @@ public:
                 (hv->at(0))->Fill(d.muonPt);
                 (hv->at(1))->Fill(d.muonEta);
                 (hv->at(2))->Fill(d.muonPhi);
-                
+                if(LeptMult->at(i)){(hv->at(3))->Fill(LeptMult->at(i));}
             }
         }
         return;
@@ -369,7 +374,7 @@ public:
         TH1F* muonPt_ = 0;
         TH1F* muonEta_ = 0;
         TH1F* muonPhi_ = 0;
-        
+        TH1F* LeptonMult_ = 0;
         if(Case==1 || Case==2)
         {
             electronPt_  = fs.make<TH1F>("electronPt_"  , "pt"  ,   100,   0., 400.);
@@ -390,7 +395,11 @@ public:
             hv->push_back(muonEta_);
             hv->push_back(muonPhi_);
         }
-        
+        if(Case==1 || Case==2 || Case==3)
+        {
+            LeptonMult_  = fs.make<TH1F>("LeptonMult_"  , "LeptonMultiplcity"  ,   20,  0.0, 20.0);
+            hv->push_back(LeptonMult_);
+        }
         return hv;
     }
 

@@ -81,6 +81,12 @@ int main(int argc, char* argv[])
    // fwlite::TFileService fsmet = fwlite::TFileService("original_met.root");
     
     char ofname[200];
+    sprintf(ofname,"electronMult_%d.root",jobid);
+    fwlite::TFileService fse = fwlite::TFileService(ofname);
+    
+    sprintf(ofname,"muonMult_%d.root",jobid);
+    fwlite::TFileService fsm = fwlite::TFileService(ofname);
+    
     sprintf(ofname,"electronMuononeTeoneTm_%d.root",jobid);
     fwlite::TFileService fsem = fwlite::TFileService(ofname);
 
@@ -111,8 +117,8 @@ int main(int argc, char* argv[])
     sprintf(ofname,"met2mu_%d.root",jobid);
     fwlite::TFileService fsEMM2mu = fwlite::TFileService(ofname);
     
- //   vector<TH1F*>* hve = Electron::getHistPointers(fse);
-   // vector<TH1F*>* hvm = Muon::getHistPointers(fsm);
+    vector<TH1F*>* hve = Electron::getHistPointers(fse);
+    vector<TH1F*>* hvm = Muon::getHistPointers(fsm);
    // vector<TH1F*>* hvmet = Met::getHistPointers(fsmet);
     
     vector<TH1F*>* hvem = ElectronMuon::getHistPointers(fsem, 1);
@@ -135,27 +141,25 @@ int main(int argc, char* argv[])
     
     for(int i=s;i<=n;i++)
     {
-        
         sprintf(fname,"%s%d.root",constName,i);
         cout<<"File Name:"<<fname<<endl;
     
         ep = new Electron();
         ep->setData(fname);
-       // ep->fillHisto(hve);
         epf1 = new Electron(ep->selectData1());
         epf2 = new Electron(ep->selectData2());
+        ep->fillHisto(hve);
         
                 cTTE += ep->getTTE();
                 cEW1e += ep->getEW1E();
                 cEW2e += ep->getEW2E();
         
-        
         mp = new Muon();
         mp->setData(fname);
-       // mp->fillHisto(hvm);
+        
         mpf1 = new Muon(mp->selectData1());
         mpf2 = new Muon(mp->selectData2());
-        
+        mp->fillHisto(hvm);
         cTTM += mp->getTTM();
         cEW1m += mp->getEW1M();
         cEW2m += mp->getEW2M();
@@ -163,9 +167,9 @@ int main(int argc, char* argv[])
         emp = new ElectronMuon();
         emp2e = new ElectronMuon();
         emp2mu = new ElectronMuon();
-        emp->setData1(*epf1,*mpf1);
-        emp2e->setData2(*epf2);
-        emp2mu->setData3(*mpf2);
+        emp->setData1(*epf1,*mpf1,*ep,*mp);
+        emp2e->setData2(*epf2,*ep,*mp);
+        emp2mu->setData3(*mpf2,*ep,*mp);
         emp->fillHisto(hvem, 1);
         emp2e->fillHisto(hvem2e, 2);
         emp2mu->fillHisto(hvem2mu, 3);
@@ -177,9 +181,9 @@ int main(int argc, char* argv[])
         empOppChrg = new ElectronMuonOppChrg();
         empOppChrg2e = new ElectronMuonOppChrg();
         empOppChrg2mu = new ElectronMuonOppChrg();
-        empOppChrg->setData(*emp);
-        empOppChrg2e->setData(*emp2e);
-        empOppChrg2mu->setData(*emp2mu);
+        empOppChrg->setData(*emp,*ep,*mp);
+        empOppChrg2e->setData(*emp2e,*ep,*mp);
+        empOppChrg2mu->setData(*emp2mu,*ep,*mp);
         empOppChrg->fillHisto(hvemOppChrg, 1);
         empOppChrg2e->fillHisto(hvemOppChrg2e, 2);
         empOppChrg2mu->fillHisto(hvemOppChrg2mu, 3);
@@ -192,8 +196,8 @@ int main(int argc, char* argv[])
         empel2e = new ElectronMuonExtraLoose();
         empel2mu = new ElectronMuonExtraLoose();
         empel->setData1(*empOppChrg,*ep,*mp);
-        empel2e->setData2(*empOppChrg2e,*ep);
-        empel2mu->setData3(*empOppChrg2mu,*mp);
+        empel2e->setData2(*empOppChrg2e,*ep,*mp);
+        empel2mu->setData3(*empOppChrg2mu,*ep,*mp);
         empel->fillHisto(hvemel, 1);
         empel2e->fillHisto(hvemel2e, 2);
         empel2mu->fillHisto(hvemel2mu, 3);
@@ -211,9 +215,9 @@ int main(int argc, char* argv[])
         obpEMM = new ElectronMuonMet();
         obpEMM2e = new ElectronMuonMet();
         obpEMM2mu = new ElectronMuonMet();
-        obpEMM->setData(*empel,*metp);
-        obpEMM2e->setData(*empel2e,*metpf);
-        obpEMM2mu->setData(*empel2mu,*metpf);
+        obpEMM->setData(*empel,*metp,*ep,*mp);
+        obpEMM2e->setData(*empel2e,*metpf,*ep,*mp);
+        obpEMM2mu->setData(*empel2mu,*metpf,*ep,*mp);
         obpEMM->fillHisto(hvEMM, 1);
         obpEMM2e->fillHisto(hvEMM2e, 2);
         obpEMM2mu->fillHisto(hvEMM2mu, 3);

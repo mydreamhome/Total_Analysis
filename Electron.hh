@@ -1,5 +1,7 @@
 class ElectronMuon;
+class ElectronMuonOppChrg;
 class ElectronMuonExtraLoose;
+class ElectronMuonMet;
 
 class Electron
 {
@@ -14,17 +16,19 @@ class Electron
     };
     
     vector<vector<DATA>*>* v;
+    vector<int>* LeptMult;
     int cTTE,cEW1E,CEW2E;
-    
     
 public:
     Electron()
     {
         v = new vector<vector<DATA>*>;
+        LeptMult = new vector<int>;
     }
     Electron(vector<vector<DATA>*>* uv)
     {
         v=uv;
+        LeptMult = new vector<int>;
     }
     
     int getTTE(){return cTTE;}
@@ -207,6 +211,8 @@ public:
                   tightCount++;
                 }
             }
+            
+            LeptMult->push_back(tightCount);
             
             if(tightCount==1){isEventSelected=true;//cout<<i<<" Reject2"<<endl;
             }
@@ -465,16 +471,18 @@ public:
 
     void fillHisto(vector<TH1F*>* hv)
     {
-        vector<DATA>* dv;
-        DATA d;
-        
-        
+      //  vector<DATA>* dv;
+        //DATA d;
+     //   cout<<"error e "<<LeptMult->size()<<endl;
+      //  cout<<"error e v:  "<<v->size()<<endl;
         for(unsigned int i=0; i < v->size(); i++)
         {
-            dv=v->at(i);
-            int tightCount=0;
-            int elctron_number = 0;
-            for(unsigned int j=0;j<dv->size();j++)
+          //  dv=v->at(i);
+         //   int tightCount=0;
+         //   int elctron_number = 0;
+            if(LeptMult->at(i)){(hv->at(0))->Fill(LeptMult->at(i));}
+            if(v->at(i)){(hv->at(1))->Fill((v->at(i))->size());}
+          /*  for(unsigned int j=0;j<dv->size();j++)
             {
                 d=dv->at(j);
                 if(d.tight.all)
@@ -491,7 +499,7 @@ public:
                 (hv->at(1))->Fill(d.pt);
                 (hv->at(2))->Fill(d.eta);
                 (hv->at(3))->Fill(d.phi);
-            }
+            }*/
         }
         return;
     }
@@ -506,19 +514,25 @@ public:
     {
         vector<TH1F*>* hv = new vector<TH1F*>;
         
-        // TFileDirectory dir = fs.mkdir("tight_electron");
-        TH1F* electronPt_  = fs.make<TH1F>("electronPt_"  , "pt"  ,   100,   0., 400.);
-        TH1F* exactlyOneelectronPt_  = fs.make<TH1F>("exactlyOneelectronPt_"  , "pt"  ,   100,   0., 400.);
-        TH1F* exactlyOneelectronEta_  = fs.make<TH1F>("exactlyOneelectronEta_"  , "eta"  ,   100,   -3.0, 3.0);
-        TH1F* exactlyOneelectronPhi_  = fs.make<TH1F>("exactlyOneelectronPhi_"  , "phi"  ,   100,  -3.5, 3.5);
+      //  TFileDirectory dir = fs.mkdir("tight_electron");
+      //  TH1F* electronPt_  = fs.make<TH1F>("electronPt_"  , "pt"  ,   100,   0., 400.);
+      //  TH1F* exactlyOneelectronPt_  = fs.make<TH1F>("exactlyOneelectronPt_"  , "pt"  ,   100,   0., 400.);
+      //  TH1F* exactlyOneelectronEta_  = fs.make<TH1F>("exactlyOneelectronEta_"  , "eta"  ,   100,   -3.0, 3.0);
+      //  TH1F* exactlyOneelectronPhi_  = fs.make<TH1F>("exactlyOneelectronPhi_"  , "phi"  ,   100,  -3.5, 3.5);
+        TH1F* electronMult_  = fs.make<TH1F>("electronMult_"  , "electronMultiplcity"  ,   20,  0.0, 20.0);
+        TH1F* beforeElectronMult_  = fs.make<TH1F>("beforeElectronMult_"  , "beforeElectronMultiplcity"  ,   20,  0.0, 20.0);
 
-        hv->push_back(electronPt_);
-        hv->push_back(exactlyOneelectronPt_);
-        hv->push_back(exactlyOneelectronEta_);
-        hv->push_back(exactlyOneelectronPhi_);
-
+      //  hv->push_back(electronPt_);
+      //  hv->push_back(exactlyOneelectronPt_);
+      //  hv->push_back(exactlyOneelectronEta_);
+      //  hv->push_back(exactlyOneelectronPhi_);
+        hv->push_back(electronMult_);
+        hv->push_back(beforeElectronMult_);
+        
         return hv;
     }
     friend class ElectronMuon;
+    friend class ElectronMuonOppChrg;
     friend class ElectronMuonExtraLoose;
+    friend class ElectronMuonMet;
 };

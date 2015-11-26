@@ -1,5 +1,7 @@
 class ElectronMuon;
+class ElectronMuonOppChrg;
 class ElectronMuonExtraLoose;
+class ElectronMuonMet;
 
 class Muon
 {
@@ -15,16 +17,18 @@ class Muon
     };
     
     vector<vector<DATA>*>*  v;
+    vector<int>* LeptMult;
     int cTTM,cEW1M,cEW2M;
 public:
     Muon()
     {
         v = new vector<vector<DATA>*>;
+        LeptMult = new vector<int>;
     }
     Muon(vector<vector<DATA>*>* uv)
     {
-        
         v=uv;
+        LeptMult = new vector<int>;
     }
     int getTTM(){return cTTM;}
     int getEW1M(){return cEW1M;}
@@ -174,6 +178,8 @@ public:
                   tightCount++;
                 }
             }
+            
+            LeptMult->push_back(tightCount);
             
             if(tightCount==1){isEventSelected=true;//cout<<i<<" Reject2"<<endl;
             }
@@ -344,16 +350,18 @@ public:
     
     void fillHisto(vector<TH1F*>* hv)
     {
-        vector<DATA>* dv;
-        DATA d;
-        
-        
+      //  vector<DATA>* dv;
+      //  DATA d;
+      //  cout<<"error m "<<LeptMult->size()<<endl;
+        //cout<<"error m v:  "<<v->size()<<endl;
         for(unsigned int i=0; i < v->size(); i++)
         {
-            dv=v->at(i);
-            int tightCount=0;
-            int muon_number = 0;
-            for(unsigned int j=0;j<dv->size();j++)
+          //  dv=v->at(i);
+           // int tightCount=0;
+           // int muon_number = 0;
+            if(LeptMult->at(i)){(hv->at(0))->Fill(LeptMult->at(i));}
+            if(v->at(i)){(hv->at(1))->Fill((v->at(i))->size());}
+          /*  for(unsigned int j=0;j<dv->size();j++)
             {
                 d=dv->at(j);
                 if(d.tight && d.all)
@@ -370,14 +378,13 @@ public:
                 (hv->at(1))->Fill(d.pt);
                 (hv->at(2))->Fill(d.eta);
                 (hv->at(3))->Fill(d.phi);
-            }
+            }*/
         }
         return;
     }
     
     ~Muon()
     {
-        
         delete v;
         v=0;
     }
@@ -387,20 +394,26 @@ public:
         vector<TH1F*>* hv = new vector<TH1F*>;
         
         // TFileDirectory dir = fs.mkdir("tight_muon");
-        TH1F* muonPt_  = fs.make<TH1F>("muonPt_"  , "pt"  ,   100,   0., 400.);
-        TH1F* exactlyOneMuonPt_  = fs.make<TH1F>("exactlyOneMuonPt_"  , "pt"  ,   100,   0., 400.);
-        TH1F* exactlyOneMuonEta_  = fs.make<TH1F>("exactlyOneMuonEta_"  , "eta"  ,   100,   -3.0, 3.0);
-        TH1F* exactlyOneMuonPhi_  = fs.make<TH1F>("exactlyOneMuonPhi_"  , "phi"  ,   100,  -3.5, 3.5);
+     //   TH1F* muonPt_  = fs.make<TH1F>("muonPt_"  , "pt"  ,   100,   0., 400.);
+       // TH1F* exactlyOneMuonPt_  = fs.make<TH1F>("exactlyOneMuonPt_"  , "pt"  ,   100,   0., 400.);
+      //  TH1F* exactlyOneMuonEta_  = fs.make<TH1F>("exactlyOneMuonEta_"  , "eta"  ,   100,   -3.0, 3.0);
+    //    TH1F* exactlyOneMuonPhi_  = fs.make<TH1F>("exactlyOneMuonPhi_"  , "phi"  ,   100,  -3.5, 3.5);
+        TH1F* muonMult_  = fs.make<TH1F>("muonMult_"  , "muonMultiplcity"  ,   20,  0.0, 20.0);
+        TH1F* beforeMuonMult_  = fs.make<TH1F>("beforeMuonMult_"  , "beforeMuonMultiplcity"  ,   20,  0.0, 20.0);
         
-        hv->push_back(muonPt_);
-        hv->push_back(exactlyOneMuonPt_);
-        hv->push_back(exactlyOneMuonEta_);
-        hv->push_back(exactlyOneMuonPhi_);
+   //     hv->push_back(muonPt_);
+     //   hv->push_back(exactlyOneMuonPt_);
+       // hv->push_back(exactlyOneMuonEta_);
+       // hv->push_back(exactlyOneMuonPhi_);
+        hv->push_back(muonMult_);
+        hv->push_back(beforeMuonMult_);
         
         return hv;
     }
     
     friend class ElectronMuon;
+    friend class ElectronMuonOppChrg;
     friend class ElectronMuonExtraLoose;
+    friend class ElectronMuonMet;
 };
 
