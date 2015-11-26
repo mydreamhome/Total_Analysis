@@ -12,7 +12,7 @@ class ElectronMuonExtraLoose
     struct DATAE
     {
         
-        float  eID,phi,eta,pt,dxy,veto,mhits,iso,charge,scEta,fullSigmaEtaEta,dEtaIn,dPhiIn,HoverE,ooEmooP,d0,dz;
+        float  eID,phi,eta,pt,dxy,veto,mhits,iso,charge,scEta,fullSigmaEtaEta,dEtaIn,dPhiIn,HoverE,ooEmooP,d0,dz,energy;
         CUTE    loose,tight;
     };
   /*  struct CUTM
@@ -21,7 +21,7 @@ class ElectronMuonExtraLoose
     };*/
     struct DATAM
     {
-        float  mID,eta,pt,iso,charge,phi,tight,loose;
+        float  mID,eta,pt,iso,charge,phi,tight,loose,energy;
         bool   etac,ptc,isoc,tightc,loosec,all;
         // CUT    loose,tight;
     };
@@ -34,7 +34,7 @@ class ElectronMuonExtraLoose
     struct DATA
     {
         int evtID,eID,mID;
-        float ech,mch,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi;
+        float ech,mch,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi,electronEnergy,muonEnergy;
     };
     
     vector<DATA>*  v;
@@ -115,6 +115,8 @@ public:
                 emelc.muonPt=em.v->at(i).muonPt;
                 emelc.muonEta=em.v->at(i).muonEta;
                 emelc.muonPhi=em.v->at(i).muonPhi;
+                emelc.electronEnergy=em.v->at(i).electronEnergy;
+                emelc.muonEnergy=em.v->at(i).muonEnergy;
                 
                 // cout<<"Selected (on basis of extra loose electrons & muons) EventID: "<<evtID<<", electronID:"<<emelc.eID<<", muonID:"<<emelc.mID<<", electronCharge:"<<emelc.ech<<", muonCharge:"<<emelc.mch<<endl;
                 LeptMult->push_back(((elect.v->at(emelc.evtID))->size())+((mu.v->at(emelc.evtID))->size()));
@@ -173,6 +175,8 @@ public:
                 emelc.muonPt=em.v->at(i).muonPt;
                 emelc.muonEta=em.v->at(i).muonEta;
                 emelc.muonPhi=em.v->at(i).muonPhi;
+                emelc.electronEnergy=em.v->at(i).electronEnergy;
+                emelc.muonEnergy=em.v->at(i).muonEnergy;
                 
                 // cout<<"Selected (on basis of extra loose electrons & muons) EventID: "<<evtID<<", electronID:"<<emelc.eID<<", muonID:"<<emelc.mID<<", electronCharge:"<<emelc.ech<<", muonCharge:"<<emelc.mch<<endl;
                 LeptMult->push_back(((elect.v->at(emelc.evtID))->size())+((ufm.v->at(emelc.evtID))->size()));
@@ -231,6 +235,8 @@ public:
                 emelc.muonPt=em.v->at(i).muonPt;
                 emelc.muonEta=em.v->at(i).muonEta;
                 emelc.muonPhi=em.v->at(i).muonPhi;
+                emelc.electronEnergy=em.v->at(i).electronEnergy;
+                emelc.muonEnergy=em.v->at(i).muonEnergy;
                 
                 // cout<<"Selected (on basis of extra loose electrons & muons) EventID: "<<evtID<<", electronID:"<<emelc.eID<<", muonID:"<<emelc.mID<<", electronCharge:"<<emelc.ech<<", muonCharge:"<<emelc.mch<<endl;
                 LeptMult->push_back(((ufe.v->at(emelc.evtID))->size())+((mu.v->at(emelc.evtID))->size()));

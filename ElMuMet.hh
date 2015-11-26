@@ -14,7 +14,7 @@ class ElectronMuonMet
  
 	struct DATA{
 		int evtID;
-		float metPt,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi;
+		float metPt,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi,electronEnergy,muonEnergy;
 
 	};
 
@@ -50,7 +50,7 @@ public:
                 events++;
                 MetDATA metd =(MetDATA) dv->at(j);
                // cout <<"i:   "<<i<<"j:   "<<j<<endl;
-                DATA d ={evtID,metd.pt,emel.v->at(i).electronPt,emel.v->at(i).electronEta,emel.v->at(i).electronPhi,emel.v->at(i).muonPt,emel.v->at(i).muonEta,emel.v->at(i).muonPhi};
+                DATA d ={evtID,metd.pt,emel.v->at(i).electronPt,emel.v->at(i).electronEta,emel.v->at(i).electronPhi,emel.v->at(i).muonPt,emel.v->at(i).muonEta,emel.v->at(i).muonPhi,emel.v->at(i).electronEnergy,emel.v->at(i).muonEnergy};
                 v->push_back(d);
                 //cout<<"MET:EventID"<<evtID<<", MetID:"<<j<<"PT:"<<metd.pt<<", ptc:"<<metd.ptc<<endl;
             }

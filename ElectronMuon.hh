@@ -12,7 +12,7 @@ class ElectronMuon
     struct DATAE
     {
         
-        float  eID,phi,eta,pt,dxy,veto,mhits,iso,charge,scEta,fullSigmaEtaEta,dEtaIn,dPhiIn,HoverE,ooEmooP,d0,dz;
+        float  eID,phi,eta,pt,dxy,veto,mhits,iso,charge,scEta,fullSigmaEtaEta,dEtaIn,dPhiIn,HoverE,ooEmooP,d0,dz,energy;
         CUTE    loose,tight;
     };
   /*  struct CUTM
@@ -21,14 +21,14 @@ class ElectronMuon
     };*/
     struct DATAM
     {
-        float  mID,eta,pt,iso,charge,phi,tight,loose;
+        float  mID,eta,pt,iso,charge,phi,tight,loose,energy;
         bool   etac,ptc,isoc,tightc,loosec,all;
         // CUT    loose,tight;
     };
     
     struct DATA{
         int evtID,eID,mID;
-        float ech,mch,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi;
+        float ech,mch,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi,electronEnergy,muonEnergy;
     };
     
     vector<DATA>*  v;
@@ -76,6 +76,8 @@ public:
                         emd.muonPt=m.pt;
                         emd.muonEta=m.eta;
                         emd.muonPhi=m.phi;
+                        emd.electronEnergy=e.energy;
+                        emd.muonEnergy=m.energy;
                         
                         c++;
                     }
@@ -124,7 +126,8 @@ public:
                         emd.muonPt=e2.pt;
                         emd.muonEta=e2.eta;
                         emd.muonPhi=e2.phi;
-                        
+                        emd.electronEnergy=e1.energy;
+                        emd.muonEnergy=e2.energy;
                         c++;
             }
             if(c==1)
@@ -171,7 +174,8 @@ public:
                 emd.muonPt=m2.pt;
                 emd.muonEta=m2.eta;
                 emd.muonPhi=m2.phi;
-                
+                emd.electronEnergy=m1.energy;
+                emd.muonEnergy=m2.energy;
                 c++;
             }
             if(c==1)

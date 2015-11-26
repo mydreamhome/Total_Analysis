@@ -11,7 +11,7 @@ class Electron
     };
     struct DATA
     {
-        float  eID,phi,eta,pt,dxy,veto,mhits,iso,charge,scEta,fullSigmaEtaEta,dEtaIn,dPhiIn,HoverE,ooEmooP,d0,dz;
+        float  eID,phi,eta,pt,dxy,veto,mhits,iso,charge,scEta,fullSigmaEtaEta,dEtaIn,dPhiIn,HoverE,ooEmooP,d0,dz,energy;
         CUT    loose,tight;
     };
     
@@ -102,6 +102,9 @@ public:
             // Handle to the electron electronDz
             edm::Handle<std::vector<float> > electronDz;
             event.getByLabel(std::string("electrons:elDz"), electronDz);
+            // Handle to the electron energy
+            edm::Handle<std::vector<float> > electronEn;
+            event.getByLabel(std::string("electrons:elE"), electronEn);
             
             vector<DATA>* dv = new vector<DATA>;
             DATA d;
@@ -126,6 +129,7 @@ public:
                 d.ooEmooP = electronooEmooP->at(i);
                 d.d0 = electronD0->at(i);
                 d.dz = electronDz->at(i);
+                d.energy = electronEn->at(i);
                 
                 dv->push_back(d);
                 

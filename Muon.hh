@@ -11,7 +11,7 @@ class Muon
     };*/
     struct DATA
     {
-        float  mID,eta,pt,iso,charge,phi,tight,loose;
+        float  mID,eta,pt,iso,charge,phi,tight,loose,energy;
         bool   etac,ptc,isoc,tightc,loosec,all;
        // CUT    loose,tight;
     };
@@ -81,6 +81,9 @@ public:
             // Handle to the muon loose
             edm::Handle<std::vector<float> > muonLoose;
             event.getByLabel(std::string("muons:muIsLooseMuon"), muonLoose);
+            // Handle to the muon energy
+            edm::Handle<std::vector<float> > muonEn;
+            event.getByLabel(std::string("muons:muE"), muonEn);
             
             vector<DATA>* dv = new vector<DATA>;
             DATA d;
@@ -98,7 +101,7 @@ public:
                 d.phi = muonPhi->at(i);
                 d.tight = muonTight->at(i);
                 d.loose = muonLoose->at(i);
-                
+                d.energy = muonEn->at(i);
                 dv->push_back(d);
                 
             }

@@ -7,7 +7,7 @@ class ElectronMuonOppChrg
 {
     struct DATA{
         int evtID,eID,mID;
-        float ech,mch,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi;
+        float ech,mch,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi,electronEnergy,muonEnergy;
     };
     
     vector<DATA>*  v;
@@ -44,6 +44,8 @@ public:
                         emd.muonPt=((em.v)->at(i)).muonPt;
                         emd.muonEta=((em.v)->at(i)).muonEta;
                         emd.muonPhi=((em.v)->at(i)).muonPhi;
+                        emd.electronEnergy=((em.v)->at(i)).electronEnergy;
+                        emd.muonEnergy=((em.v)->at(i)).muonEnergy;
                         events++;
                         c++;
  
