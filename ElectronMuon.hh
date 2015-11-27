@@ -28,7 +28,11 @@ class ElectronMuon
     
     struct DATA{
         int evtID,eID,mID;
+<<<<<<< HEAD
         float ech,mch,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi,electronEnergy,muonEnergy,mll;
+=======
+        float ech,mch,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi,electronEnergy,muonEnergy;
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
     };
     
     vector<DATA>*  v;
@@ -48,10 +52,13 @@ public:
     vector<DATA>* setData1(Electron& fe,Muon& fm,Electron& ufe,Muon& ufm)
     {
         int events = 0;
+<<<<<<< HEAD
         int chargeSign = 0;
         TLorentzVector electron;
         TLorentzVector positron;
         TLorentzVector Zcand;
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         for(unsigned int i=0;i<fe.v->size();i++)//loop over all events
         {
             int c=0;
@@ -69,6 +76,7 @@ public:
                         DATAE e = edv->at(0);
                         DATAM m = mdv->at(0);
                         
+<<<<<<< HEAD
                         chargeSign = (e.charge < 0 )?(e.charge):1;
                         
                         if(chargeSign < 0)
@@ -84,6 +92,8 @@ public:
                         
                         Zcand = electron + positron;
                         
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
                         emd.evtID=i;
                         emd.eID=e.eID;
                         emd.mID=m.mID;
@@ -97,7 +107,11 @@ public:
                         emd.muonPhi=m.phi;
                         emd.electronEnergy=e.energy;
                         emd.muonEnergy=m.energy;
+<<<<<<< HEAD
                         emd.mll=Zcand.M();
+=======
+                        
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
                         c++;
                     }
 
@@ -119,10 +133,13 @@ public:
     {
      //   cout<<"called 2e in emu class at begining"<<endl;
         int events = 0;
+<<<<<<< HEAD
         int chargeSign = 0;
         TLorentzVector electron;
         TLorentzVector positron;
         TLorentzVector Zcand;
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         for(unsigned int i=0;i<fe.v->size();i++)//loop over all events
         {
             int c=0;
@@ -138,6 +155,7 @@ public:
                 DATAE e1 = edv->at(0);
                 DATAE e2 = edv->at(1);
                 
+<<<<<<< HEAD
                 chargeSign = (e1.charge < 0 )?(e1.charge):1;
                 
                 if(chargeSign < 0)
@@ -153,6 +171,8 @@ public:
                 
                 Zcand = electron + positron;
                 
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
                         emd.evtID=i;
                         emd.eID=e1.eID;
                         emd.mID=e2.eID;
@@ -166,7 +186,10 @@ public:
                         emd.muonPhi=e2.phi;
                         emd.electronEnergy=e1.energy;
                         emd.muonEnergy=e2.energy;
+<<<<<<< HEAD
                         emd.mll=Zcand.M();
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
                         c++;
             }
             if(c==1)
@@ -188,10 +211,13 @@ public:
     {
       //  cout<<"called 2m in emu class at beginning"<<endl;
         int events = 0;
+<<<<<<< HEAD
         int chargeSign = 0;
         TLorentzVector electron;
         TLorentzVector positron;
         TLorentzVector Zcand;
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         for(unsigned int i=0;i<fm.v->size();i++)//loop over all events
         {
             vector<DATAM>* mdv = (vector<DATAM>*)fm.v->at(i); //pointer to electron's collection(1st electron) in a particular event
@@ -206,6 +232,7 @@ public:
                 DATAM m1 = mdv->at(0);
                 DATAM m2 = mdv->at(1);
                 
+<<<<<<< HEAD
                 chargeSign = (m1.charge < 0 )?(m1.charge):1;
                 
                 if(chargeSign < 0)
@@ -221,6 +248,8 @@ public:
                 
                 Zcand = electron + positron;
                 
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
                 emd.evtID=i;
                 emd.eID=m1.mID;
                 emd.mID=m2.mID;
@@ -234,7 +263,10 @@ public:
                 emd.muonPhi=m2.phi;
                 emd.electronEnergy=m1.energy;
                 emd.muonEnergy=m2.energy;
+<<<<<<< HEAD
                 emd.mll=Zcand.M();
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
                 c++;
             }
             if(c==1)
@@ -270,7 +302,10 @@ public:
                 (hv->at(4))->Fill(d.muonEta);
                 (hv->at(5))->Fill(d.muonPhi);
                 if(LeptMult->at(i)){(hv->at(6))->Fill(LeptMult->at(i));}
+<<<<<<< HEAD
                 (hv->at(7))->Fill(d.mll);
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
             }
             if(Case==2)
             {
@@ -282,7 +317,10 @@ public:
                 (hv->at(1))->Fill(d.muonEta);
                 (hv->at(2))->Fill(d.muonPhi);
                 if(LeptMult->at(i)){(hv->at(3))->Fill(LeptMult->at(i));}
+<<<<<<< HEAD
                 (hv->at(4))->Fill(d.mll);
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
             }
             
             if(Case==3)
@@ -295,7 +333,10 @@ public:
                 (hv->at(1))->Fill(d.muonEta);
                 (hv->at(2))->Fill(d.muonPhi);
                 if(LeptMult->at(i)){(hv->at(3))->Fill(LeptMult->at(i));}
+<<<<<<< HEAD
                 (hv->at(4))->Fill(d.mll);
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
             }
         }
         return;
@@ -320,7 +361,10 @@ public:
         TH1F* muonPhi_ = 0;
         
         TH1F* LeptonMult_ = 0;
+<<<<<<< HEAD
         TH1F* MllDistri_ = 0;
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         
         if(Case==1 || Case==2)
         {
@@ -345,10 +389,14 @@ public:
         if(Case==1 || Case==2 || Case==3)
         {
             LeptonMult_  = fs.make<TH1F>("LeptonMult_"  , "LeptonMultiplcity"  ,   20,  0.0, 20.0);
+<<<<<<< HEAD
             MllDistri_  = fs.make<TH1F>("MllDistri_"  , "MllDistribution"  ,   100,  0.0, 200.0);
             
             hv->push_back(LeptonMult_);
             hv->push_back(MllDistri_);
+=======
+            hv->push_back(LeptonMult_);
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         }
         return hv;
     }

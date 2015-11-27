@@ -10,7 +10,10 @@
 #include <TROOT.h>
 #include <TFile.h>
 #include <TSystem.h>
+<<<<<<< HEAD
 #include <TLorentzVector.h>
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
 
 #include "DataFormats/FWLite/interface/Event.h"
 #include "DataFormats/Common/interface/Handle.h"
@@ -30,7 +33,10 @@ using namespace std;
 #include "ElectronMuon.hh"
 #include "ElectronMuonOppChrg.hh"
 #include "ElectronMuonExtraLoose.hh"
+<<<<<<< HEAD
 #include "Mllcut.hh"
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
 #include "Met.hh"
 #include "ElMuMet.hh"
 
@@ -74,9 +80,12 @@ int main(int argc, char* argv[])
     ElectronMuonExtraLoose* empel=0;
     ElectronMuonExtraLoose* empel2e=0;
     ElectronMuonExtraLoose* empel2mu=0;
+<<<<<<< HEAD
     Mllcut* obpMllCut=0;
     Mllcut* obpMllCut2e=0;
     Mllcut* obpMllCut2mu=0;
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
     ElectronMuonMet* obpEMM=0;
     ElectronMuonMet* obpEMM2e=0;
     ElectronMuonMet* obpEMM2mu=0;
@@ -94,8 +103,15 @@ int main(int argc, char* argv[])
     
     sprintf(ofname,"electronMuononeTeoneTm_%d.root",jobid);
     fwlite::TFileService fsem = fwlite::TFileService(ofname);
+<<<<<<< HEAD
     sprintf(ofname,"electronMuononeTeoneTm2e_%d.root",jobid);
     fwlite::TFileService fsem2e = fwlite::TFileService(ofname);
+=======
+
+    sprintf(ofname,"electronMuononeTeoneTm2e_%d.root",jobid);
+    fwlite::TFileService fsem2e = fwlite::TFileService(ofname);
+    
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
     sprintf(ofname,"electronMuononeTeoneTm2mu_%d.root",jobid);
     fwlite::TFileService fsem2mu = fwlite::TFileService(ofname);
     
@@ -112,6 +128,7 @@ int main(int argc, char* argv[])
     fwlite::TFileService fsemel2e = fwlite::TFileService(ofname);
     sprintf(ofname,"electronMuonExtraloose2mu_%d.root",jobid);
     fwlite::TFileService fsemel2mu = fwlite::TFileService(ofname);
+<<<<<<< HEAD
   
     sprintf(ofname,"mllCUt1e1m_%d.root",jobid);
     fwlite::TFileService fsmll = fwlite::TFileService(ofname);
@@ -119,6 +136,8 @@ int main(int argc, char* argv[])
     fwlite::TFileService fsmll2e = fwlite::TFileService(ofname);
     sprintf(ofname,"mllCUt2m_%d.root",jobid);
     fwlite::TFileService fsmll2mu = fwlite::TFileService(ofname);
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
     
     sprintf(ofname,"met_%d.root",jobid);
     fwlite::TFileService fsEMM = fwlite::TFileService(ofname);
@@ -143,15 +162,22 @@ int main(int argc, char* argv[])
     vector<TH1F*>* hvemel2e = ElectronMuonExtraLoose::getHistPointers(fsemel2e, 2);
     vector<TH1F*>* hvemel2mu = ElectronMuonExtraLoose::getHistPointers(fsemel2mu, 3);
     
+<<<<<<< HEAD
     vector<TH1F*>* hvmll = Mllcut::getHistPointers(fsmll, 1);
     vector<TH1F*>* hvmll2e = Mllcut::getHistPointers(fsmll2e, 2);
     vector<TH1F*>* hvmll2mu = Mllcut::getHistPointers(fsmll2mu, 3);
     
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
     vector<TH1F*>* hvEMM = ElectronMuonMet::getHistPointers(fsEMM, 1);
     vector<TH1F*>* hvEMM2e = ElectronMuonMet::getHistPointers(fsEMM2e, 2);
     vector<TH1F*>* hvEMM2mu = ElectronMuonMet::getHistPointers(fsEMM2mu, 3);
     
+<<<<<<< HEAD
     int cTTE=0,cEW1e=0,cEW2e=0,cTTM=0,cEW1m=0,cEW2m=0,c1E1M=0,c2E=0,c2M=0,cOppChrg1e1m=0,cOppChrg2e=0,cOppChrg2m=0,cExLoose1e1m=0,cExLoose2e=0,cExLoose2m=0,cmllc1e1m=0, cmllc2e=0, cmllc2m=0,cMetCut=0,cEMuMet1e1m=0,cEMuMet2e=0,cEMuMet2m=0;
+=======
+    int cTTE=0,cEW1e=0,cEW2e=0,cTTM=0,cEW1m=0,cEW2m=0,c1E1M=0,c2E=0,c2M=0,cOppChrg1e1m=0,cOppChrg2e=0,cOppChrg2m=0,cExLoose1e1m=0,cExLoose2e=0,cExLoose2m=0,cMetCut=0,cEMuMet1e1m=0,cEMuMet2e=0,cEMuMet2m=0;
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
     
     for(int i=s;i<=n;i++)
     {
@@ -220,6 +246,7 @@ int main(int argc, char* argv[])
         cExLoose2e += empel2e->getEWExLoose2e();
         cExLoose2m += empel2mu->getEWExLoose2m();
         
+<<<<<<< HEAD
         obpMllCut = new Mllcut();
         obpMllCut2e = new Mllcut();
         obpMllCut2mu = new Mllcut();
@@ -234,6 +261,8 @@ int main(int argc, char* argv[])
         cmllc2e += obpMllCut2e->getEWcmllc();
         cmllc2m += obpMllCut2mu->getEWcmllc();
         
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         metp = new Met();
         metp->setData(fname);
         metpf = new Met(metp->selectData());
@@ -243,9 +272,15 @@ int main(int argc, char* argv[])
         obpEMM = new ElectronMuonMet();
         obpEMM2e = new ElectronMuonMet();
         obpEMM2mu = new ElectronMuonMet();
+<<<<<<< HEAD
         obpEMM->setData(*obpMllCut,*metp,*ep,*mp);
         obpEMM2e->setData(*obpMllCut2e,*metpf,*ep,*mp);
         obpEMM2mu->setData(*obpMllCut2mu,*metpf,*ep,*mp);
+=======
+        obpEMM->setData(*empel,*metp,*ep,*mp);
+        obpEMM2e->setData(*empel2e,*metpf,*ep,*mp);
+        obpEMM2mu->setData(*empel2mu,*metpf,*ep,*mp);
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         obpEMM->fillHisto(hvEMM, 1);
         obpEMM2e->fillHisto(hvEMM2e, 2);
         obpEMM2mu->fillHisto(hvEMM2mu, 3);
@@ -269,9 +304,12 @@ int main(int argc, char* argv[])
         delete empel;
         delete empel2e;
         delete empel2mu;
+<<<<<<< HEAD
         delete obpMllCut;
         delete obpMllCut2e;
         delete obpMllCut2mu;
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         delete obpEMM;
         delete obpEMM2e;
         delete obpEMM2mu;
@@ -292,9 +330,12 @@ int main(int argc, char* argv[])
     cout<<"total number of selected events due to extra loose cuts in 1e 1mu : "<<cExLoose1e1m<<endl;
     cout<<"total number of selected events due to extra loose cuts in 2e : "<<cExLoose2e<<endl;
     cout<<"total number of selected events due to extra loose cuts in 2mu : "<<cExLoose2m<<endl;
+<<<<<<< HEAD
     cout<<"total number of selected events after mll cuts in 1e 1mu : "<<cmllc1e1m<<endl;
     cout<<"total number of selected events after mll cuts in 2e : "<<cmllc2e<<endl;
     cout<<"total number of selected events after mll cuts in 2mu : "<<cmllc2m<<endl;
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
     cout<<"Total number of Mets passing cuts: "<< cMetCut <<endl;
     cout<<"total number of selected events due to met passing no cut 1e1mu :"<<cEMuMet1e1m<<endl;
     cout<<"total number of selected events due to met passing cut 2e :"<<cEMuMet2e<<endl;

@@ -1,8 +1,12 @@
 class Electron;
 class Muon;
 class Met;
+<<<<<<< HEAD
 //class ElectronMuonExtraLoose;
 class Mllcut;
+=======
+class ElectronMuonExtraLoose;
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
 
 class ElectronMuonMet
 {
@@ -15,7 +19,11 @@ class ElectronMuonMet
  
 	struct DATA{
 		int evtID;
+<<<<<<< HEAD
 		float metPt,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi,electronEnergy,muonEnergy,mll;
+=======
+		float metPt,electronPt,electronEta,electronPhi,muonPt,muonEta,muonPhi,electronEnergy,muonEnergy;
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
 
 	};
 
@@ -32,7 +40,11 @@ public:
 
     int getEMuMet(){return cEMuMet;}
     
+<<<<<<< HEAD
     vector<DATA>* setData(Mllcut& emel, Met& met,Electron& ufe,Muon& ufm)
+=======
+    vector<DATA>* setData(ElectronMuonExtraLoose& emel, Met& met,Electron& ufe,Muon& ufm)
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
     {
         int rejected_met = 0;
         int events = 0;
@@ -51,7 +63,11 @@ public:
                 events++;
                 MetDATA metd =(MetDATA) dv->at(j);
                // cout <<"i:   "<<i<<"j:   "<<j<<endl;
+<<<<<<< HEAD
                 DATA d ={evtID,metd.pt,emel.v->at(i).electronPt,emel.v->at(i).electronEta,emel.v->at(i).electronPhi,emel.v->at(i).muonPt,emel.v->at(i).muonEta,emel.v->at(i).muonPhi,emel.v->at(i).electronEnergy,emel.v->at(i).muonEnergy,emel.v->at(i).mll};
+=======
+                DATA d ={evtID,metd.pt,emel.v->at(i).electronPt,emel.v->at(i).electronEta,emel.v->at(i).electronPhi,emel.v->at(i).muonPt,emel.v->at(i).muonEta,emel.v->at(i).muonPhi,emel.v->at(i).electronEnergy,emel.v->at(i).muonEnergy};
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
                 v->push_back(d);
                 //cout<<"MET:EventID"<<evtID<<", MetID:"<<j<<"PT:"<<metd.pt<<", ptc:"<<metd.ptc<<endl;
             }
@@ -158,7 +174,10 @@ public:
                 (hv->at(5))->Fill(d.muonPhi);
                 (hv->at(6))->Fill(d.metPt);
                 if(LeptMult->at(i)){(hv->at(7))->Fill(LeptMult->at(i));}
+<<<<<<< HEAD
                 (hv->at(8))->Fill(d.mll);
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
             }
             if(Case==2)
             {
@@ -171,7 +190,10 @@ public:
                 (hv->at(2))->Fill(d.muonPhi);
                 (hv->at(3))->Fill(d.metPt);
                 if(LeptMult->at(i)){(hv->at(4))->Fill(LeptMult->at(i));}
+<<<<<<< HEAD
                 (hv->at(5))->Fill(d.mll);
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
             }
             
             if(Case==3)
@@ -185,7 +207,10 @@ public:
                 (hv->at(2))->Fill(d.muonPhi);
                 (hv->at(3))->Fill(d.metPt);
                 if(LeptMult->at(i)){(hv->at(4))->Fill(LeptMult->at(i));}
+<<<<<<< HEAD
                 (hv->at(5))->Fill(d.mll);
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
             }
         }
         return;
@@ -210,8 +235,11 @@ public:
         TH1F* muonPhi_ = 0;
         TH1F* metPt_ = 0;
         TH1F* LeptonMult_ = 0;
+<<<<<<< HEAD
         TH1F* MllDistri_ = 0;
         
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         if(Case==1 || Case==2)
         {
             electronPt_  = fs.make<TH1F>("electronPt_"  , "pt"  ,   100,   0., 400.);
@@ -240,10 +268,14 @@ public:
         if(Case==1 || Case==2 || Case==3)
         {
             LeptonMult_  = fs.make<TH1F>("LeptonMult_"  , "LeptonMultiplcity"  ,   20,  0.0, 20.0);
+<<<<<<< HEAD
             MllDistri_  = fs.make<TH1F>("MllDistri_"  , "MllDistribution"  ,   100,  0.0, 200.0);
             
             hv->push_back(LeptonMult_);
             hv->push_back(MllDistri_);
+=======
+            hv->push_back(LeptonMult_);
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
         }
         return hv;
     }

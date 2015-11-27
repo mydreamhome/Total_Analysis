@@ -2,7 +2,10 @@ class ElectronMuon;
 class ElectronMuonOppChrg;
 class ElectronMuonExtraLoose;
 class ElectronMuonMet;
+<<<<<<< HEAD
 class Mllcut;
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
 
 class Electron
 {
@@ -539,6 +542,9 @@ public:
     friend class ElectronMuon;
     friend class ElectronMuonOppChrg;
     friend class ElectronMuonExtraLoose;
+<<<<<<< HEAD
     friend class Mllcut;
+=======
+>>>>>>> e62376e3cdb987a4cc5201394fc27c19a665799b
     friend class ElectronMuonMet;
 };
